@@ -1,0 +1,222 @@
+/* ===== Página do jogo (jogo.html) ===== */
+/* Tudo está dentro de .pagina-jogo para não afetar inicio.html e fim.html */
+
+.pagina-jogo,
+.pagina-jogo *,
+.pagina-jogo *::before,
+.pagina-jogo *::after {
+    box-sizing: border-box;
+}
+
+.pagina-jogo {
+    --fundo: #0f172a;
+    --cartao: #1e293b;
+    --texto: #e2e8f0;
+    --texto-suave: #94a3b8;
+    --destaque: #38bdf8;
+    --acerto: #22c55e;
+    --erro: #ef4444;
+
+    margin: 0;
+    min-height: 100vh;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ----- Cartão principal ----- */
+.pagina-jogo .jogo {
+    width: 100%;
+    max-width: 760px;
+    padding: 24px;
+    background: var(--cartao);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ----- Cabeçalho ----- */
+.pagina-jogo .jogo__cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.pagina-jogo .jogo__cabecalho h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--destaque);
+}
+
+.pagina-jogo .jogo__voltar {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.pagina-jogo .jogo__voltar:hover {
+    color: var(--destaque);
+}
+
+/* ----- Painel (forca + informações) ----- */
+.pagina-jogo .jogo__painel {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.pagina-jogo .jogo__forca {
+    padding: 12px;
+    background: #f8fafc; /* fundo claro porque o desenho da forca é escuro */
+    border-radius: 12px;
+    text-align: center;
+}
+
+.pagina-jogo .jogo__forca img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.pagina-jogo .jogo__erros {
+    margin: 8px 0 0;
+    color: #334155;
+    font-weight: 600;
+}
+
+.pagina-jogo .jogo__info {
+    text-align: center;
+}
+
+.pagina-jogo .jogo__dica {
+    margin: 0 0 16px;
+    color: var(--texto-suave);
+}
+
+.pagina-jogo .jogo__palavra {
+    margin: 0 0 16px;
+    font-family: "Courier New", monospace;
+    font-size: 2.4rem;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    word-break: break-word;
+}
+
+.pagina-jogo .jogo__usadas {
+    margin: 0 0 16px;
+    color: var(--erro);
+}
+
+/* ----- Mensagem de fim de jogo ----- */
+.pagina-jogo .jogo__mensagem {
+    min-height: 1.5em;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.pagina-jogo .jogo__mensagem.vitoria {
+    color: var(--acerto);
+}
+
+.pagina-jogo .jogo__mensagem.derrota {
+    color: var(--erro);
+}
+
+/* ----- Teclado ----- */
+.pagina-jogo .teclado {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.pagina-jogo .tecla {
+    padding: 12px 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #334155;
+    color: var(--texto);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.pagina-jogo .tecla:hover:not(:disabled) {
+    background: #475569;
+    transform: translateY(-2px);
+}
+
+.pagina-jogo .tecla:focus-visible {
+    outline: 3px solid var(--destaque);
+    outline-offset: 2px;
+}
+
+.pagina-jogo .tecla:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagina-jogo .tecla.acerto {
+    background: var(--acerto);
+    color: #052e16;
+    opacity: 1;
+}
+
+.pagina-jogo .tecla.erro {
+    background: var(--erro);
+    color: #450a0a;
+    opacity: 1;
+}
+
+/* ----- Botão reiniciar ----- */
+.pagina-jogo .botao-reiniciar {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--destaque);
+    color: #082f49;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+
+.pagina-jogo .botao-reiniciar:hover {
+    filter: brightness(1.1);
+}
+
+.pagina-jogo .botao-reiniciar:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+/* ----- Celular ----- */
+@media (max-width: 640px) {
+    .pagina-jogo .jogo {
+        padding: 16px;
+    }
+
+    .pagina-jogo .jogo__painel {
+        grid-template-columns: 1fr;
+    }
+
+    .pagina-jogo .jogo__forca {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    .pagina-jogo .jogo__palavra {
+        font-size: 1.9rem;
+    }
+}
