@@ -61,7 +61,8 @@ git clone LINK_DO_REPOSITORIO
 - Bruna Trindade Tavares
 - Crizan Ribeiro Benevides
 - Gerson Júnior
-- Jose Victor Ferreira da Silva
+- Jose Victor Ferreira da Silva - Scrum master!!!!
+
 
 ## 📚 Conhecimentos desenvolvidos
 
