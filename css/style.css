@@ -1,5 +1,8 @@
-/* ===== Página do jogo (jogo.html) ===== */
-/* Tudo está dentro de .pagina-jogo para não afetar inicio.html e fim.html */
+/* =====================================================
+   JOGO DA FORCA - estilos da página jogo.html
+   Tudo dentro de .pagina-jogo para não afetar
+   inicio.html e fim.html
+   ===================================================== */
 
 .pagina-jogo,
 .pagina-jogo *,
@@ -8,151 +11,329 @@
     box-sizing: border-box;
 }
 
+/* ---------- Variáveis e fundo ---------- */
 .pagina-jogo {
-    --fundo: #0f172a;
-    --cartao: #1e293b;
-    --texto: #e2e8f0;
+    --bg-1: #070b18;
+    --bg-2: #141a35;
+    --cartao: rgba(30, 41, 59, 0.72);
+    --borda: rgba(255, 255, 255, 0.09);
+    --texto: #e8edf7;
     --texto-suave: #94a3b8;
     --destaque: #38bdf8;
+    --destaque-2: #818cf8;
     --acerto: #22c55e;
     --erro: #ef4444;
+    --raio: 20px;
 
     margin: 0;
     min-height: 100vh;
-    padding: 16px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--fundo);
     color: var(--texto);
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.18), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(129, 140, 248, 0.2), transparent 40%),
+        linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    background-attachment: fixed;
 }
 
-/* ----- Cartão principal ----- */
+/* ---------- Cartão principal ---------- */
 .pagina-jogo .jogo {
     width: 100%;
-    max-width: 760px;
-    padding: 24px;
+    max-width: 820px;
+    padding: 28px;
     background: var(--cartao);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--borda);
+    border-radius: 28px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    animation: entrar 0.5s ease-out;
 }
 
-/* ----- Cabeçalho ----- */
+/* ---------- Cabeçalho ---------- */
 .pagina-jogo .jogo__cabecalho {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .pagina-jogo .jogo__cabecalho h1 {
     margin: 0;
-    font-size: 1.8rem;
-    color: var(--destaque);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    background: linear-gradient(90deg, var(--destaque), var(--destaque-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .pagina-jogo .jogo__voltar {
+    padding: 8px 14px;
     color: var(--texto-suave);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--borda);
+    border-radius: 999px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
 .pagina-jogo .jogo__voltar:hover {
-    color: var(--destaque);
+    color: var(--texto);
+    border-color: var(--destaque);
+    background: rgba(56, 189, 248, 0.1);
 }
 
-/* ----- Painel (forca + informações) ----- */
+/* ---------- Painel: forca + informações ---------- */
 .pagina-jogo .jogo__painel {
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 24px;
+    grid-template-columns: 300px 1fr;
+    gap: 28px;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
+/* ---------- Caixa da forca ---------- */
 .pagina-jogo .jogo__forca {
-    padding: 12px;
-    background: #f8fafc; /* fundo claro porque o desenho da forca é escuro */
-    border-radius: 12px;
+    padding: 16px 16px 14px;
     text-align: center;
+    background: linear-gradient(145deg, #ffffff, #e6ecf5);
+    border-radius: var(--raio);
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.35),
+        inset 0 -4px 10px rgba(15, 23, 42, 0.08);
 }
 
 .pagina-jogo .jogo__forca img {
     display: block;
     width: 100%;
     height: auto;
+    filter: drop-shadow(0 4px 4px rgba(15, 23, 42, 0.2));
+}
+
+/* Classe que o JS pode adicionar quando o jogador errar */
+.pagina-jogo .jogo__forca.tremer {
+    animation: tremer 0.45s ease;
+}
+
+/* ---------- Barra de vidas ---------- */
+.pagina-jogo .vidas {
+    display: flex;
+    gap: 6px;
+    margin: 12px 0 8px;
+}
+
+.pagina-jogo .vida {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22c55e, #84cc16);
+    transition: background 0.3s, transform 0.3s, opacity 0.3s;
+}
+
+/* Classe que o JS adiciona em cada vida perdida */
+.pagina-jogo .vida.perdida {
+    background: #cbd5e1;
+    transform: scaleY(0.6);
+    opacity: 0.7;
 }
 
 .pagina-jogo .jogo__erros {
-    margin: 8px 0 0;
+    margin: 0;
     color: #334155;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
 }
 
+/* ---------- Informações ---------- */
 .pagina-jogo .jogo__info {
     text-align: center;
 }
 
 .pagina-jogo .jogo__dica {
-    margin: 0 0 16px;
+    display: inline-block;
+    margin: 0 0 18px;
+    padding: 6px 14px;
     color: var(--texto-suave);
+    font-size: 0.95rem;
+    background: rgba(148, 163, 184, 0.12);
+    border-radius: 999px;
+}
+
+.pagina-jogo .jogo__dica span {
+    color: var(--texto);
+    font-weight: 600;
 }
 
 .pagina-jogo .jogo__palavra {
-    margin: 0 0 16px;
-    font-family: "Courier New", monospace;
-    font-size: 2.4rem;
-    font-weight: bold;
-    letter-spacing: 0.15em;
+    margin: 0 0 20px;
+    font-family: "Cascadia Code", "Courier New", monospace;
+    font-size: clamp(1.8rem, 5vw, 2.7rem);
+    font-weight: 800;
+    letter-spacing: 0.18em;
     word-break: break-word;
+    text-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
 }
 
+/* ---------- Chutar uma letra ---------- */
+.pagina-jogo .chute {
+    margin-bottom: 18px;
+}
+
+.pagina-jogo .chute__rotulo {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.pagina-jogo .chute__campo {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagina-jogo .chute__input {
+    width: 64px;
+    height: 48px;
+    padding: 0;
+    color: var(--texto);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    background: rgba(15, 23, 42, 0.7);
+    border: 2px solid var(--borda);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pagina-jogo .chute__input::placeholder {
+    color: #475569;
+}
+
+.pagina-jogo .chute__input:focus {
+    border-color: var(--destaque);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+}
+
+.pagina-jogo .chute__botao {
+    height: 48px;
+    padding: 0 22px;
+    color: #06243a;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--destaque), var(--destaque-2));
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #1e5a8a;
+    transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
+}
+
+.pagina-jogo .chute__botao:hover:not(:disabled) {
+    filter: brightness(1.1);
+}
+
+.pagina-jogo .chute__botao:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #1e5a8a;
+}
+
+.pagina-jogo .chute__botao:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+.pagina-jogo .chute__input:disabled,
+.pagina-jogo .chute__botao:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Efeito quando a letra digitada é inválida (JS adiciona .invalido) */
+.pagina-jogo .chute__input.invalido {
+    border-color: var(--erro);
+    animation: tremer 0.35s ease;
+}
+
+/* ---------- Letras erradas ---------- */
 .pagina-jogo .jogo__usadas {
-    margin: 0 0 16px;
-    color: var(--erro);
+    margin: 0 0 14px;
+    color: #fca5a5;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
 }
 
-/* ----- Mensagem de fim de jogo ----- */
+/* ---------- Mensagem de vitória / derrota ---------- */
 .pagina-jogo .jogo__mensagem {
-    min-height: 1.5em;
+    min-height: 2.6em;
     margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
+    padding: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+}
+
+.pagina-jogo .jogo__mensagem.vitoria,
+.pagina-jogo .jogo__mensagem.derrota {
+    padding: 10px 14px;
+    animation: pop 0.4s ease;
 }
 
 .pagina-jogo .jogo__mensagem.vitoria {
-    color: var(--acerto);
+    color: #bbf7d0;
+    background: rgba(34, 197, 94, 0.16);
+    border: 1px solid rgba(34, 197, 94, 0.5);
 }
 
 .pagina-jogo .jogo__mensagem.derrota {
-    color: var(--erro);
+    color: #fecaca;
+    background: rgba(239, 68, 68, 0.16);
+    border: 1px solid rgba(239, 68, 68, 0.5);
 }
 
-/* ----- Teclado ----- */
+/* ---------- Teclado ---------- */
 .pagina-jogo .teclado {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
-    gap: 8px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(46px, 1fr));
+    gap: 10px;
+    margin-bottom: 26px;
 }
 
 .pagina-jogo .tecla {
     padding: 12px 0;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    background: #334155;
     color: var(--texto);
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
+    background: linear-gradient(180deg, #3b4a63, #2c3a52);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 0 #1a2336;
+    transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
 }
 
 .pagina-jogo .tecla:hover:not(:disabled) {
-    background: #475569;
+    filter: brightness(1.25);
     transform: translateY(-2px);
+    box-shadow: 0 6px 0 #1a2336;
+}
+
+.pagina-jogo .tecla:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #1a2336;
 }
 
 .pagina-jogo .tecla:focus-visible {
@@ -162,61 +343,118 @@
 
 .pagina-jogo .tecla:disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #1a2336;
+    opacity: 0.55;
 }
 
 .pagina-jogo .tecla.acerto {
-    background: var(--acerto);
     color: #052e16;
+    background: linear-gradient(180deg, #4ade80, #22c55e);
+    box-shadow: 0 1px 0 #15803d;
     opacity: 1;
+    animation: pop 0.35s ease;
 }
 
 .pagina-jogo .tecla.erro {
-    background: var(--erro);
     color: #450a0a;
+    background: linear-gradient(180deg, #f87171, #ef4444);
+    box-shadow: 0 1px 0 #b91c1c;
     opacity: 1;
+    animation: pop 0.35s ease;
 }
 
-/* ----- Botão reiniciar ----- */
+/* ---------- Botão reiniciar ---------- */
 .pagina-jogo .botao-reiniciar {
     display: block;
     width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: var(--destaque);
-    color: #082f49;
-    font-size: 1.1rem;
-    font-weight: bold;
+    padding: 15px;
+    color: var(--texto);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    transition: filter 0.15s;
+    background: transparent;
+    border: 2px solid var(--destaque);
+    border-radius: 14px;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
 }
 
 .pagina-jogo .botao-reiniciar:hover {
-    filter: brightness(1.1);
+    color: #06243a;
+    background: linear-gradient(135deg, var(--destaque), var(--destaque-2));
+    border-color: transparent;
+}
+
+.pagina-jogo .botao-reiniciar:active {
+    transform: scale(0.98);
 }
 
 .pagina-jogo .botao-reiniciar:focus-visible {
     outline: 3px solid #fff;
-    outline-offset: 2px;
+    outline-offset: 3px;
 }
 
-/* ----- Celular ----- */
-@media (max-width: 640px) {
+/* ---------- Animações ---------- */
+@keyframes entrar {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pop {
+    0%   { transform: scale(0.85); }
+    60%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tremer {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-8px); }
+    40%      { transform: translateX(8px); }
+    60%      { transform: translateX(-5px); }
+    80%      { transform: translateX(5px); }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 680px) {
+    .pagina-jogo {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
     .pagina-jogo .jogo {
-        padding: 16px;
+        padding: 18px;
+        border-radius: 22px;
     }
 
     .pagina-jogo .jogo__painel {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .pagina-jogo .jogo__forca {
-        max-width: 260px;
+        max-width: 280px;
         margin: 0 auto;
     }
 
-    .pagina-jogo .jogo__palavra {
-        font-size: 1.9rem;
+    .pagina-jogo .teclado {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+    }
+}
+
+/* ---------- Respeita quem prefere menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .pagina-jogo *,
+    .pagina-jogo *::before,
+    .pagina-jogo *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }

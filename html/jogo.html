@@ -17,14 +17,40 @@
 
         <section class="jogo__painel">
 
-            <div class="jogo__forca">
+            <div class="jogo__forca" id="caixa-forca">
                 <img id="forca" src="../img/forca-0 (1).svg" alt="Desenho da forca">
+                <div class="vidas" id="vidas" aria-hidden="true">
+                    <span class="vida"></span>
+                    <span class="vida"></span>
+                    <span class="vida"></span>
+                    <span class="vida"></span>
+                    <span class="vida"></span>
+                    <span class="vida"></span>
+                </div>
                 <p class="jogo__erros">Erros: <span id="erros">0</span> / 6</p>
             </div>
 
             <div class="jogo__info">
                 <p class="jogo__dica">Dica: <span id="dica">—</span></p>
+
                 <p id="palavra" class="jogo__palavra" aria-live="polite">_ _ _ _ _</p>
+
+                <div class="chute">
+                    <label for="chute" class="chute__rotulo">Chutar uma letra</label>
+                    <div class="chute__campo">
+                        <input
+                            id="chute"
+                            class="chute__input"
+                            type="text"
+                            maxlength="1"
+                            autocomplete="off"
+                            placeholder="?"
+                            aria-label="Digite uma letra para chutar"
+                        >
+                        <button id="btn-chutar" class="chute__botao" type="button">Chutar</button>
+                    </div>
+                </div>
+
                 <p class="jogo__usadas">Letras erradas: <span id="letras-erradas">nenhuma</span></p>
                 <p id="mensagem" class="jogo__mensagem" aria-live="polite"></p>
             </div>
