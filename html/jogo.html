@@ -3,22 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#060913">
     <title>Jogo da Forca</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="pagina-jogo">
 
+    <noscript>Ative o JavaScript do navegador para jogar.</noscript>
+
     <main class="jogo">
 
-        <header class="jogo__cabecalho">
-            <h1>Jogo da Forca</h1>
-            <a href="inicio.html" class="jogo__voltar">&larr; Início</a>
+        <!-- ===== Topo ===== -->
+        <header class="topo">
+            <div class="topo__marca">
+                <h1 class="topo__titulo">Jogo da Forca</h1>
+                <p class="topo__subtitulo">Descubra a palavra antes que as vidas acabem</p>
+            </div>
+
+            <div class="topo__acoes">
+                <button id="btn-som" class="btn-icone" type="button"
+                        aria-pressed="true" aria-label="Efeitos sonoros"
+                        title="Ligar ou desligar o som">🔊</button>
+                <a href="inicio.html" class="btn-link">&larr; Início</a>
+            </div>
         </header>
 
+        <!-- ===== Placar ===== -->
+        <section class="placar" aria-label="Placar">
+            <div class="placar__item">
+                <strong id="placar-vitorias" class="placar__valor">0</strong>
+                <span class="placar__rotulo">Vitórias</span>
+            </div>
+            <div class="placar__item">
+                <strong id="placar-derrotas" class="placar__valor">0</strong>
+                <span class="placar__rotulo">Derrotas</span>
+            </div>
+            <div class="placar__item">
+                <strong id="placar-sequencia" class="placar__valor">0</strong>
+                <span class="placar__rotulo">Sequência</span>
+            </div>
+            <div class="placar__item">
+                <strong id="placar-recorde" class="placar__valor">0</strong>
+                <span class="placar__rotulo">Recorde</span>
+            </div>
+        </section>
+
+        <!-- ===== Painel principal ===== -->
         <section class="jogo__painel">
 
-            <div class="jogo__forca" id="caixa-forca">
-                <img id="forca" src="../img/forca-0 (1).svg" alt="Desenho da forca">
+            <!-- Forca -->
+            <div class="jogo__forca" id="caixa-forca" data-nivel="0">
+                <img id="forca" src="../img/forca-0.svg" alt="Forca vazia, nenhum erro ainda">
+                <p id="aviso-imagem" class="forca__aviso" role="alert" hidden></p>
+
                 <div class="vidas" id="vidas" aria-hidden="true">
                     <span class="vida"></span>
                     <span class="vida"></span>
@@ -27,68 +64,93 @@
                     <span class="vida"></span>
                     <span class="vida"></span>
                 </div>
-                <p class="jogo__erros">Erros: <span id="erros">0</span> / 6</p>
+
+                <p class="jogo__erros">Erros: <strong id="erros">0</strong> / 6</p>
             </div>
 
+            <!-- Informações e controles -->
             <div class="jogo__info">
-                <p class="jogo__dica">Dica: <span id="dica">—</span></p>
 
-                <p id="palavra" class="jogo__palavra" aria-live="polite">_ _ _ _ _</p>
+                <div class="info__topo">
+                    <span id="categoria-chip" class="chip-categoria">—</span>
 
-                <div class="chute">
-                    <label for="chute" class="chute__rotulo">Chutar uma letra</label>
-                    <div class="chute__campo">
-                        <input
-                            id="chute"
-                            class="chute__input"
-                            type="text"
-                            maxlength="1"
-                            autocomplete="off"
-                            placeholder="?"
-                            aria-label="Digite uma letra para chutar"
-                        >
-                        <button id="btn-chutar" class="chute__botao" type="button">Chutar</button>
-                    </div>
+                    <label class="campo-select">
+                        <span class="campo-select__rotulo">Categoria</span>
+                        <select id="categoria">
+                            <option value="todas">Todas</option>
+                        </select>
+                    </label>
                 </div>
 
-                <p class="jogo__usadas">Letras erradas: <span id="letras-erradas">nenhuma</span></p>
+                <p class="jogo__dica">
+                    <span class="dica__icone" aria-hidden="true">💡</span>
+                    <span id="dica">—</span>
+                </p>
+
+                <div id="palavra" class="palavra" role="group" aria-label="Palavra secreta"></div>
+
+                <div class="chute">
+                    <label for="chute" class="chute__rotulo">Chutar uma letra ou a palavra inteira</label>
+                    <div class="chute__campo">
+                        <input id="chute" class="chute__input" type="text" maxlength="24"
+                               autocomplete="off" autocapitalize="characters" spellcheck="false"
+                               enterkeyhint="send" placeholder="Digite aqui">
+                        <button id="btn-chutar" class="botao botao--principal" type="button">Chutar</button>
+                    </div>
+                    <p class="chute__nota">Errar a palavra inteira custa 1 vida.</p>
+
+                    <button id="btn-dica" class="botao botao--sec botao--bloco" type="button">
+                        💡 Revelar uma letra <small>(−1 vida)</small>
+                    </button>
+                </div>
+
+                <div class="erradas">
+                    <span class="erradas__titulo">Erros:</span>
+                    <div id="letras-erradas" class="erradas__lista"></div>
+                </div>
+
                 <p id="mensagem" class="jogo__mensagem" aria-live="polite"></p>
             </div>
 
         </section>
 
-        <section id="teclado" class="teclado" aria-label="Teclado de letras">
-            <button class="tecla" data-letra="A">A</button>
-            <button class="tecla" data-letra="B">B</button>
-            <button class="tecla" data-letra="C">C</button>
-            <button class="tecla" data-letra="D">D</button>
-            <button class="tecla" data-letra="E">E</button>
-            <button class="tecla" data-letra="F">F</button>
-            <button class="tecla" data-letra="G">G</button>
-            <button class="tecla" data-letra="H">H</button>
-            <button class="tecla" data-letra="I">I</button>
-            <button class="tecla" data-letra="J">J</button>
-            <button class="tecla" data-letra="K">K</button>
-            <button class="tecla" data-letra="L">L</button>
-            <button class="tecla" data-letra="M">M</button>
-            <button class="tecla" data-letra="N">N</button>
-            <button class="tecla" data-letra="O">O</button>
-            <button class="tecla" data-letra="P">P</button>
-            <button class="tecla" data-letra="Q">Q</button>
-            <button class="tecla" data-letra="R">R</button>
-            <button class="tecla" data-letra="S">S</button>
-            <button class="tecla" data-letra="T">T</button>
-            <button class="tecla" data-letra="U">U</button>
-            <button class="tecla" data-letra="V">V</button>
-            <button class="tecla" data-letra="W">W</button>
-            <button class="tecla" data-letra="X">X</button>
-            <button class="tecla" data-letra="Y">Y</button>
-            <button class="tecla" data-letra="Z">Z</button>
-        </section>
+        <!-- ===== Teclado (montado pelo JavaScript) ===== -->
+        <section id="teclado" class="teclado" aria-label="Teclado de letras"></section>
 
-        <button id="reiniciar" class="botao-reiniciar" type="button">Reiniciar</button>
+        <div class="acoes">
+            <button id="reiniciar" class="botao botao--sec botao--bloco" type="button">↻ Nova palavra</button>
+        </div>
+
+        <footer class="rodape">
+            <p>
+                Você também pode digitar no teclado do computador.
+                Acentos contam: a letra <strong>A</strong> também revela Á, Ã e Â.
+            </p>
+            <button id="btn-zerar" class="btn-texto" type="button">Zerar placar</button>
+        </footer>
 
     </main>
+
+    <!-- ===== Janela de fim de jogo ===== -->
+    <dialog id="modal-fim" class="modal" aria-labelledby="modal-titulo">
+        <div class="modal__conteudo">
+            <p id="modal-emoji" class="modal__emoji" aria-hidden="true">🎉</p>
+            <h2 id="modal-titulo" class="modal__titulo">Você venceu!</h2>
+            <p id="modal-texto" class="modal__texto"></p>
+            <p id="modal-palavra" class="modal__palavra"></p>
+
+            <ul class="modal__stats">
+                <li><strong id="modal-erros">0</strong><span>Erros</span></li>
+                <li><strong id="modal-tempo">0s</strong><span>Tempo</span></li>
+                <li><strong id="modal-sequencia">0</strong><span>Sequência</span></li>
+            </ul>
+
+            <div class="modal__acoes">
+                <button id="modal-jogar" class="botao botao--principal" type="button">Jogar novamente</button>
+                <button id="modal-fechar" class="botao botao--sec" type="button">Ver tabuleiro</button>
+            </div>
+        </div>
+    </dialog>
 
     <script src="../js/script.js"></script>
 </body>

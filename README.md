@@ -49,7 +49,7 @@ Jogo-da-Forca/
 1. Faça o clone do repositório:
 
 ```bash
-git clone LINK_DO_REPOSITORIO
+git clone https://github.com/gersonjunior-AFK/forca.git
 ```
 
 2. Entre na pasta do projeto.
@@ -61,7 +61,7 @@ git clone LINK_DO_REPOSITORIO
 - Bruna Trindade Tavares
 - Crizan Ribeiro Benevides
 - Gerson Júnior
-- Jose Victor Ferreira da Silva - Scrum master!!!!
+- Jose Victor Ferreira da Silva - Scrum master!!!! vagabundo
 
 
 ## 📚 Conhecimentos desenvolvidos
