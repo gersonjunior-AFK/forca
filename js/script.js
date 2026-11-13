@@ -385,7 +385,7 @@ function popularCategorias() {
 function precarregarImagens() {
     for (let i = 0; i <= MAX_ERROS; i++) {
         const imagem = new Image();
-        imagem.src = `${PASTA_IMAGENS}forca-${i}.svg`;
+        imagem.src = `${PASTA_IMAGENS}${i === MAX_ERROS ? "forca-final.svg" : `forca-${i}.svg`}`;
     }
 }
 
@@ -466,7 +466,7 @@ function atualizarPalavra(revelarTudo = false) {
 function atualizarForca() {
     const nivel = Math.min(estado.erros, MAX_ERROS);
 
-    el.imagem.src = `${PASTA_IMAGENS}forca-${nivel}.svg`;
+    el.imagem.src = `${PASTA_IMAGENS}${nivel === MAX_ERROS ? "forca-final.svg" : `forca-${nivel}.svg`}`;
     el.imagem.alt = DESCRICOES_FORCA[nivel];
     el.caixa.dataset.nivel = String(nivel);
     el.erros.textContent = String(nivel);

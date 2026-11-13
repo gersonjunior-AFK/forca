@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
   color: var(--text);
   background:
-    url("img_homepage/forca-bg.svg") repeat,
+    url("../img/forca-bg.svg") repeat,
     radial-gradient(ellipse at 18% 18%, rgba(84, 99, 255, 0.34), transparent 38%),
     radial-gradient(ellipse at 85% 82%, rgba(177, 82, 255, 0.3), transparent 42%),
     linear-gradient(135deg, #10152f 0%, #202051 48%, #391f62 100%);

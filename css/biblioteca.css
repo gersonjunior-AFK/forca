@@ -1,0 +1,112 @@
+:root {
+	color-scheme: dark;
+	font-family: "Segoe UI", sans-serif;
+	color: #f7f7ff;
+	background: #11142d;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	padding: 32px 20px;
+	place-items: center;
+	background: url("../img/forca-bg.svg") repeat, linear-gradient(135deg, #10152f, #202051 55%, #193e4b);
+	background-size: 320px 320px, auto;
+}
+
+.instrucoes {
+	width: min(100%, 700px);
+	padding: clamp(24px, 6vw, 52px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	border-radius: 20px;
+	background: rgba(15, 18, 45, 0.9);
+	box-shadow: 0 24px 70px rgba(5, 6, 27, 0.4);
+}
+
+.voltar {
+	color: #c4c6df;
+	text-decoration: none;
+}
+
+.eyebrow {
+	margin: 34px 0 10px;
+	color: #a7f3d0;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+h1 {
+	margin: 0;
+	font-size: clamp(2.2rem, 8vw, 3.8rem);
+	line-height: 1.1;
+}
+
+h1 span {
+	color: #a7f3d0;
+}
+
+.introducao,
+.passos span {
+	color: #c4c6df;
+	line-height: 1.65;
+}
+
+.introducao {
+	margin: 14px 0 28px;
+}
+
+.passos {
+	display: grid;
+	gap: 18px;
+	margin: 0;
+	padding-left: 24px;
+}
+
+.passos li {
+	padding-left: 6px;
+}
+
+.passos li::marker {
+	color: #a7f3d0;
+	font-weight: 700;
+}
+
+.passos strong,
+.passos span {
+	display: block;
+}
+
+.passos strong {
+	margin-bottom: 4px;
+}
+
+.comecar {
+	display: inline-flex;
+	min-height: 50px;
+	align-items: center;
+	gap: 12px;
+	margin-top: 32px;
+	padding: 0 20px;
+	border-radius: 10px;
+	color: #11142d;
+	background: #a7f3d0;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.voltar:focus-visible,
+.comecar:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 4px;
+}
