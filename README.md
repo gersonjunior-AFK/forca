@@ -1,5 +1,5 @@
 # forca
-site:https://gersonjunior-afk.github.io/forca/
+Acesse o jogo: [Jogo da Forca](https://gersonjunior-afk.github.io/forca/)
 
 # 🎮 Jogo da Forca
 
@@ -31,16 +31,21 @@ Desenvolver um jogo da forca funcional e intuitivo, utilizando tecnologias de de
 ## 📂 Estrutura do projeto
 
 ```text
-Jogo-da-Forca/
-│
+forca/
 ├── index.html
-│
+├── html/
+│   ├── inicio.html
+│   ├── jogo.html
+│   ├── biblioteca.html
+│   └── fim.html
 ├── css/
-│   └── style.css
-│
+│   ├── css_homepage.css
+│   ├── style.css
+│   └── biblioteca.css
 ├── js/
-│   └── script.js
-│
+│   ├── script.js
+│   └── biblioteca.js
+├── img/
 └── README.md
 ```
 
