@@ -1,0 +1,315 @@
+/* Variáveis e configurações gerais — Feito por José Victor */
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --text: #f7f7ff;
+  --muted: #c4c6df;
+  --accent: #c5b7ff;
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    url("img_homepage/forca-bg.svg") repeat,
+    radial-gradient(ellipse at 18% 18%, rgba(84, 99, 255, 0.34), transparent 38%),
+    radial-gradient(ellipse at 85% 82%, rgba(177, 82, 255, 0.3), transparent 42%),
+    linear-gradient(135deg, #10152f 0%, #202051 48%, #391f62 100%);
+  background-size: 320px 320px, auto, auto, auto;
+  padding: 32px 20px;
+}
+
+/* Elementos decorativos do fundo — Feito por José Victor */
+body::before,
+body::after {
+  position: fixed;
+  z-index: -1;
+  width: 280px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+body::before {
+  top: -135px;
+  right: -75px;
+  box-shadow: 0 0 0 28px rgba(255, 255, 255, 0.025), 0 0 0 58px rgba(255, 255, 255, 0.02);
+}
+
+body::after {
+  bottom: -180px;
+  left: -100px;
+  width: 360px;
+  box-shadow: 0 0 0 32px rgba(255, 255, 255, 0.025), 0 0 0 70px rgba(255, 255, 255, 0.02);
+}
+
+/* Cartão central e conteúdo da homepage — Feito por José Victor */
+.home {
+  width: min(100%, 660px);
+  margin: auto;
+  padding: clamp(32px, 7vw, 64px) clamp(22px, 7vw, 68px);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.055));
+  box-shadow: 0 28px 80px rgba(5, 6, 27, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px);
+  text-align: center;
+  animation: card-enter 750ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+/* Créditos dos alunos no rodapé — Feito por José Victor */
+.credits {
+  width: min(100%, 660px);
+  margin: 20px auto 0;
+  color: rgba(235, 233, 255, 0.8);
+  text-align: center;
+  animation: fade-up 650ms 620ms both;
+}
+
+.credits-title {
+  margin: 0 0 10px;
+  color: #eeecff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.student-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.student-list li {
+  padding: 7px 14px;
+  border: 1px solid rgba(224, 217, 255, 0.38);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 3px 12px rgba(8, 8, 35, 0.18);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-shadow: 0 1px 5px rgba(10, 8, 35, 0.45);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #e2dcff;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: fade-up 650ms 120ms both;
+}
+
+.eyebrow::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a7f3d0;
+  box-shadow: 0 0 12px rgba(167, 243, 208, 0.8);
+  content: "";
+}
+
+.illustration {
+  display: grid;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 20px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  box-shadow: 0 14px 32px rgba(8, 8, 35, 0.2);
+  font-size: 3.2rem;
+  animation: fade-up 650ms 220ms both, float 4s 1s ease-in-out infinite;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 1.05;
+  animation: fade-up 650ms 300ms both;
+}
+
+h1 span {
+  color: var(--accent);
+  text-shadow: 0 0 34px rgba(197, 183, 255, 0.25);
+}
+
+.subtitle {
+  max-width: 430px;
+  margin: 18px auto 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.7vw, 1.12rem);
+  line-height: 1.7;
+  animation: fade-up 650ms 390ms both;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 13px;
+  margin-top: 34px;
+  animation: fade-up 650ms 480ms both;
+}
+
+button {
+  min-height: 52px;
+  padding: 0 23px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.96rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+button:hover,
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-3px);
+}
+
+button:active,
+.primary-button:active,
+.secondary-button:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+button:focus-visible,
+.primary-button:focus-visible,
+.secondary-button:focus-visible {
+  outline: 3px solid #e1d8ff;
+  outline-offset: 4px;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 23px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: #21183d;
+  background: linear-gradient(115deg, #e0d9ff, #bba8ff);
+  box-shadow: 0 10px 24px rgba(155, 128, 255, 0.3);
+  font: inherit;
+  font-size: 0.96rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.primary-button:hover {
+  box-shadow: 0 14px 30px rgba(155, 128, 255, 0.46);
+}
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 23px;
+  border-color: rgba(255, 255, 255, 0.24);
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+  font: inherit;
+  font-size: 0.96rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.secondary-button:hover {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.hint {
+  margin: 28px 0 0;
+  color: rgba(220, 220, 242, 0.68);
+  font-size: 0.82rem;
+  animation: fade-up 650ms 560ms both;
+}
+
+/* Animações de entrada e flutuação — Feito por José Victor */
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Ajustes para telas pequenas — Feito por José Victor */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 14px;
+  }
+
+  .home {
+    border-radius: 23px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions a,
+  .actions button {
+    width: 100%;
+  }
+}
+
+/* Respeita a preferência por movimento reduzido — Feito por José Victor */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
